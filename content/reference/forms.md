@@ -1,5 +1,5 @@
 # forms
-Websites generally concist of 3 main elements: paragraph text, lists
+Websites generally consist of 3 main elements: paragraph text, lists
 and forms. While paragraph text is generally straight forward to place
 on a page, lists & forms require some more work. This section explains
 everything you need to know to work with forms in Choo.
@@ -55,10 +55,34 @@ wide range of input.
 ```
 
 ### Validating Input
-Forms come with a wide range of validation built in. And probably the
+Forms come with a wide range of validation built in. Probably the
 biggest benefit is that it works on all platforms, with little effort.
-Even respecting settings such as increased font-size for people that
-can't read well. And it works out of the box with screen-readers,
-informing people why their form submission had an error.
+It respects user settings such as font-size, and supports screen readers out of the box.
 
-There's a few attributes that can be used here:
+To validate the form's input fields, there's a few attributes we can use:
+- `pattern` - validate the form's input field using a Regular Expression. For example
+ `pattern="^.{1,15}$"` makes sure strings have a length of at least 1, and not more than 15.
+- `required` - make sure that the field is filled in, and valid.
+- `title` - the message to display if the `pattern` attribute is invalid. This is useful for users
+  that can't read RegExes in their error messages (e.g. everyone).
+
+Together these allow you to express a wide range of validation, and make sure your forms are filled
+in correctly, in an accessible way. Let's see what that this looks like:
+
+```html
+<form id="login" action="/dashboard">
+  <label for="username">username</label>
+  <input id="username" name="username"
+    type="text"
+    required
+    pattern=".{1,36}"
+    title="Username must be between 1 and 36 characters long."
+  >
+  <label for="password">password</label>
+  <input id="password" name="password"
+    type="password"
+    required
+  >
+  <input type="submit" value="Login">
+</form>
+```
