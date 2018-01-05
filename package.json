@@ -25,7 +25,8 @@
     "nanocomponent": "^6.5.0",
     "object-keys": "^1.0.11",
     "object-values": "^1.0.0",
-    "ress": "^1.2.2"
+    "ress": "^1.2.2",
+    "tweezer.js": "^1.4.0"
   },
   "devDependencies": {
     "bankai": "^9.1.0",

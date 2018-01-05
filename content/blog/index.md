@@ -1,0 +1,3 @@
+title: Blog
+----
+view: default

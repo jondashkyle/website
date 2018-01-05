@@ -1,9 +1,12 @@
 var wrapper = require('../components/wrapper')
 var Header = require('../components/header')
+var Navigation = require('../components/navigation')
 var format = require('../components/format')
+var Tweezer = require('tweezer.js')
 var html = require('choo/html')
 
 var header = new Header()
+var navigation = new Navigation()
 
 module.exports = wrapper(view)
 
@@ -13,9 +16,10 @@ function view (state, emit) {
   return html`
     <div>
       <div class="vh100 x xdc">
+        ${navigation.render()}
         ${header.render()}
         <div class="py0-5 px1 tac">
-          ${page.subtitle} ↓
+          <span class="curp" onclick=${scrollWindow}>${page.subtitle} ↓</span>
         </div>
       </div>
       <div class="w100 wmx1100 mxa">
@@ -174,4 +178,19 @@ function demo (content) {
 
 function selectText (event) {
   event.target.select()
+}
+
+function scrollWindow () {
+  new Tweezer({
+    start: window.scrollY,
+    end: window.innerHeight * 0.5 + window.scrollY,
+    duration: 500,
+    easing: function (t, b, c, d) {
+      return -c * ((t=t/d-1)*t*t*t - 1) + b
+    }
+  })
+  .on('tick', function (v) {
+    window.scrollTo(0, v)
+  })
+  .begin()
 }
